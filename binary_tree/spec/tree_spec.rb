@@ -64,10 +64,21 @@ RSpec.describe Tree do
       end
     end
 
-    context 'given tree root' do
-      it 'paths equals ["10->5->3", "10->7", "10->15->14"]' do
+    context 'given valid params' do
+      it 'paths equals ["10->5->3", "10->5->7", "10->15->14"]' do
+        values = [5, 15, 14, 3, 7]
+        tree = Tree.new(10)
+        values.each { |val| tree.insert(tree.root, val) }
         tree.get_paths(tree.root)
-        expect(tree.paths).to eq(["10->5->3", "10->7", "10->15->14"])
+        expect(tree.paths).to eq(["10->5->3", "10->5->7", "10->15->14"])
+      end
+
+      it 'paths equals ["5->2", "5->7->6", "5->7->8"]' do
+        values = [2, 7, 8, 6]
+        tree = Tree.new(5)
+        values.each { |val| tree.insert(tree.root, val) }
+        tree.get_paths(tree.root)
+        expect(tree.paths).to eq(["5->2", "5->7->6", "5->7->8"])
       end
     end
   end

@@ -33,17 +33,22 @@ class Tree
 
   private
 
-  def find_paths(node)
+  def find_paths(node, path = '')
     return if node.nil?
 
-    @path += node.val.to_s
+    path += node.val.to_s
     if node.left.nil? && node.right.nil?
       @paths.push(path)
-      @path = @root.val.to_s
     end
-    @path += '->'
+    path += '->'
     current = node
-    find_paths(current.left)
-    find_paths(current.right)
+    find_paths(current.left, path)
+    find_paths(current.right, path)
   end
 end
+
+values = [5, 15, 14, 3, 7]
+tree = Tree.new(10)
+values.each { |val| tree.insert(tree.root, val) }
+tree.get_paths(tree.root)
+p tree.paths

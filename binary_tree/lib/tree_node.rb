@@ -3,6 +3,5 @@ class TreeNode
 
   def initialize(val)
     @val = val
-    @left, @right = nil, nil
   end
 end
