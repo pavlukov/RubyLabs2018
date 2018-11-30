@@ -1,7 +1,7 @@
 require 'tree'
 
 RSpec.describe Tree do
-  describe '.initialize' do
+  describe '#initialize' do
     context 'given 10' do
       let(:tree) { Tree.new(10) }
       it 'root value should be equal to 10' do
@@ -15,13 +15,14 @@ RSpec.describe Tree do
       end
     end
 
-    context 'given non-integer value'
-    it 'raises an ArgumentError error' do
-      expect { Tree.new('a') }.to raise_error ArgumentError
+    context 'given non-integer value' do
+      it 'raises an ArgumentError error' do
+        expect { Tree.new('a') }.to raise_error ArgumentError
+      end
     end
   end
 
-  describe '.insert' do
+  describe '#insert' do
     let(:tree) { Tree.new(10) }
 
     context 'given 15' do
@@ -51,7 +52,7 @@ RSpec.describe Tree do
     end
   end
 
-  describe '.find_paths' do
+  describe '#find_paths' do
     values = [5, 15, 14, 3, 7]
     let(:tree) { Tree.new(10) }
     before do
@@ -60,7 +61,7 @@ RSpec.describe Tree do
 
     context 'given wrong argument' do
       it 'raises ArgumentError' do
-        expect { tree.get_paths(123) }.to raise_error ArgumentError
+        expect(tree.paths).to eq([])
       end
     end
 
@@ -69,7 +70,7 @@ RSpec.describe Tree do
         values = [5, 15, 14, 3, 7]
         tree = Tree.new(10)
         values.each { |val| tree.insert(tree.root, val) }
-        tree.get_paths(tree.root)
+        tree.find_paths(tree.root)
         expect(tree.paths).to eq(["10->5->3", "10->5->7", "10->15->14"])
       end
 
@@ -77,7 +78,7 @@ RSpec.describe Tree do
         values = [2, 7, 8, 6]
         tree = Tree.new(5)
         values.each { |val| tree.insert(tree.root, val) }
-        tree.get_paths(tree.root)
+        tree.find_paths(tree.root)
         expect(tree.paths).to eq(["5->2", "5->7->6", "5->7->8"])
       end
     end
